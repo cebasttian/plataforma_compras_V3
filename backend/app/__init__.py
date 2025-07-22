@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from .rutas import register_blueprints
+from .gestion_solicitudes.routes import gestion_solicitudes_bp
+
 
 def create_app():
     from instance.config import Config
@@ -9,8 +10,8 @@ def create_app():
     app.config.from_object(Config)
 
     CORS(app)
-    register_blueprints(app)
-
+    app.register_blueprint(gestion_solicitudes_bp)
+    
     print("🔍 Rutas registradas:")
     for rule in app.url_map.iter_rules():
         print(f"{rule.endpoint:30} {rule.rule}")

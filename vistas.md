@@ -1,0 +1,4 @@
+- Pendientes ZLIST todas cotización y recotizaciones
+- Solicitudes (Ver todas) desarrollar 
+- Cerradas
+- Documentos*

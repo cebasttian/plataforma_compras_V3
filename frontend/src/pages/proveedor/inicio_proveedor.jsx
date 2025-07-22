@@ -2,302 +2,347 @@ import { useEffect, useState } from "react";
 import "./inicio_proveedor.css";
 const traducciones = {
   es: {
-    inicio: "Página de inicio",
-    usuario: "Usuario",
+	usuario: "Usuario",
     modo_oscuro: "Modo oscuro",
     categorias: {
-      "FI - Cierre CO": "FI - Cierre CO",
-      "FI - Cierre Mensual": "FI - Cierre Mensual",
-      "FI - Conciliación Bancaria": "FI - Conciliación Bancaria",
-      "FI - Datos Maestros": "FI - Datos Maestros"
+      "MM - PUR - Gestión de Solicitudes": "MM - PUR - Gestión de Solicitudes",
+      "MM - PUR - Gestión de Órdenes de Compra": "MM - PUR - Gestión de Órdenes de Compra",
+      "MM - PUR - Gestión de Documentos de Producto": "MM - PUR - Gestión de Documentos de Producto",
+      "MM - PUR - Gestión Contrato de Venta": "MM - PUR - Gestión Contrato de Venta",
     }
   },
   en: {
-    inicio: "Home Page",
-    usuario: "User",
+	usuario: "User",
     modo_oscuro: "Dark Mode",
     categorias: {
-      "FI - Cierre CO": "FI - CO Closing",
-      "FI - Cierre Mensual": "FI - Monthly Closing",
-      "FI - Conciliación Bancaria": "FI - Bank Reconciliation",
-      "FI - Datos Maestros": "FI - Master Data"
+      "MM - PUR - Gestión de Solicitudes": "MM - PUR - RFQ Management",
+      "MM - PUR - Gestión de Órdenes de Compra": "MM - PUR - Purchase Order Management",
+      "MM - PUR - Gestión de Documentos de Producto": "MM - PUR - Product Document Management",
+      "MM - PUR - Gestión Contrato de Venta": "MM - PUR - Sales Contract Management"
     }
   },
   zh: {
-    inicio: "首页",
-    usuario: "用户",
+	usuario: "用户",
     modo_oscuro: "深色模式",
     categorias: {
-      "FI - Cierre CO": "FI - CO结账",
-      "FI - Cierre Mensual": "FI - 月结",
-      "FI - Conciliación Bancaria": "FI - 银行对账",
-      "FI - Datos Maestros": "FI - 主数据"
+      "MM - PUR - Gestión de Solicitudes": "MM - PUR - 询价请求管理",
+      "MM - PUR - Gestión de Órdenes de Compra": "MM - PUR - 采购订单管理",
+      "MM - PUR - Gestión de Documentos de Producto": "MM - PUR - 产品文档管理",
+      "MM - PUR - Gestión Contrato de Venta": "MM - PUR - 合同管理"
     }
   },
   pt: {
-    inicio: "Página inicial",
-    usuario: "Usuário",
+	usuario: "Usuário",
     modo_oscuro: "Modo escuro",
     categorias: {
-      "FI - Cierre CO": "FI - Fechamento CO",
-      "FI - Cierre Mensual": "FI - Fechamento Mensal",
-      "FI - Conciliación Bancaria": "FI - Conciliação Bancária",
-      "FI - Datos Maestros": "FI - Dados Mestres"
+      "MM - PUR - Gestión de Solicitudes": "MM - PUR - Gestão de Solicitações de Cotação",
+      "MM - PUR - Gestión de Órdenes de Compra": "MM - PUR - Gestão de Ordens de Compra",
+      "MM - PUR - Gestión de Documentos de Producto": "MM - PUR - Gestão de Documentos do Produto",
+      "MM - PUR - Gestión Contrato de Venta": "MM - PUR - Gestão de Contrato de Venda"
     }
   }
 };
-
 	
 const data = {
-		"FI - Cierre CO": [
-			{
-				title: {
-					es: "Introducción de valores estadísticos",
-					en: "Enter statistical values",
-					zh: "输入统计值",
-					pt: "Introdução de valores estatísticos"
-				},
-				subtitle: {
-					es: "Centros de coste - Real",
-					en: "Cost centers - Actual",
-					zh: "成本中心 - 实际",
-					pt: "Centros de custo - Real"
-				},
-				icon: "insights",
-				code: "KSV1"
+  	"MM - PUR - Gestión de Solicitudes": [
+		{
+			"title": {
+				"es": "Crear Solicitud de Cotización",
+				"en": "Create Request for Quotation",
+				"zh": "创建询价请求",
+				"pt": "Criar Solicitação de Cotação"
 			},
-			{
-				title: {
-					es: "Gestionar tipos de actividad",
-					en: "Manage activity types",
-					zh: "管理活动类型",
-					pt: "Gerenciar tipos de atividade"
-				},
-				subtitle: {
-					es: "Tipos de actividad",
-					en: "Activity types",
-					zh: "活动类型",
-					pt: "Tipos de atividade"
-				},
-				icon: "category",
-				code: "KSB1"
+			"subtitle": {
+				"es": "Registrar una nueva solicitud para proveedores",
+				"en": "Register a new request for suppliers",
+				"zh": "登记新的供应商询价请求",
+				"pt": "Registrar nova solicitação para fornecedores"
 			},
-			{
-				title: {
-					es: "Gestión de órdenes internas",
-					en: "Internal order management",
-					zh: "内部订单管理",
-					pt: "Gestão de ordens internas"
-				},
-				subtitle: {
-					es: "Cost center tracking",
-					en: "Cost center tracking",
-					zh: "成本中心跟踪",
-					pt: "Rastreamento de centro de custo"
-				},
-				icon: "assignment",
-				code: "KO03"
+			"icon": "add_business",
+			"code": "ME41",
+			"enabled": false
+		},
+		{
+			"title": {
+				"es": "Editar Solicitud de Cotización",
+				"en": "Edit Request for Quotation",
+				"zh": "编辑询价请求",
+				"pt": "Editar Solicitação de Cotação"
 			},
-			{
-				title: {
-					es: "Tratar ciclos de asignación de gastos",
-					en: "Process cost allocation cycles",
-					zh: "处理费用分配周期",
-					pt: "Tratar ciclos de alocação de custos"
-				},
-				subtitle: {
-					es: "Asignación entre centros",
-					en: "Inter-center allocation",
-					zh: "中心间分配",
-					pt: "Alocação entre centros"
-				},
-				icon: "sync_alt",
-				code: "KSU1"
+			"subtitle": {
+				"es": "Modificar condiciones o productos solicitados",
+				"en": "Modify conditions or requested products",
+				"zh": "修改请求的条件或产品",
+				"pt": "Modificar condições ou produtos solicitados"
 			},
-			{
-				title: {
-					es: "Ejecutar subreparto plan",
-					en: "Execute planned secondary cost allocation",
-					zh: "执行计划二级成本分配",
-					pt: "Executar rateio planejado"
-				},
-				subtitle: {
-					es: "Plan operativo",
-					en: "Operational plan",
-					zh: "运营计划",
-					pt: "Plano operacional"
-				},
-				icon: "engineering",
-				code: "KSUB"
-			}
-		],
-		"FI - Cierre Mensual": [
-			{
-				title: {
-					es: "Visualizar posiciones de objeto",
-					en: "View object positions",
-					zh: "查看对象头寸",
-					pt: "Visualizar posições de objeto"
-				},
-				subtitle: {
-					es: "Periodificación",
-					en: "Accruals",
-					zh: "摊销/应计",
-					pt: "Acréscimos"
-				},
-				icon: "event",
-				code: "F.07"
+			"icon": "edit_note",
+			"code": "ME42",
+			"enabled": false
+		},
+		{
+			"title": {
+				"es": "Visualizar Solicitud de Cotización",
+				"en": "View Request for Quotation",
+				"zh": "查看询价请求",
+				"pt": "Visualizar Solicitação de Cotação"
 			},
-			{
-				title: {
-					es: "Arrastre de saldos cuenta corriente",
-					en: "Carry forward balances",
-					zh: "结转账户余额",
-					pt: "Transferência de saldos da conta corrente"
-				},
-				subtitle: {
-					es: "Cierre mensual",
-					en: "Monthly closing",
-					zh: "月结",
-					pt: "Fechamento mensal"
-				},
-				icon: "account_balance",
-				code: "F.52"
+			"subtitle": {
+				"es": "Consultar detalles de la solicitud",
+				"en": "Consult details of the request",
+				"zh": "查看请求的详细信息",
+				"pt": "Consultar detalhes da solicitação"
 			},
-			{
-				title: {
-					es: "Revalorización de precio",
-					en: "Price revaluation",
-					zh: "价格重估",
-					pt: "Reavaliação de preço"
-				},
-				subtitle: {
-					es: "Centros de coste",
-					en: "Cost centers",
-					zh: "成本中心",
-					pt: "Centros de custo"
-				},
-				icon: "trending_up",
-				code: "KSBP"
+			"icon": "pageview",
+			"code": "ME43",
+			"enabled": true
+		},
+		{
+			"title": {
+				"es": "Ingresar Cotización de Proveedor",
+				"en": "Enter Supplier Quotation",
+				"zh": "输入供应商报价",
+				"pt": "Inserir Cotação do Fornecedor"
 			},
-			{
-				title: {
-					es: "Reparto real",
-					en: "Actual distribution",
-					zh: "实际分配",
-					pt: "Distribuição real"
-				},
-				subtitle: {
-					es: "Distribución automática",
-					en: "Automatic distribution",
-					zh: "自动分配",
-					pt: "Distribuição automática"
-				},
-				icon: "autorenew",
-				code: "KSU5"
+			"subtitle": {
+				"es": "Registrar una oferta recibida",
+				"en": "Register a received offer",
+				"zh": "登记收到的报价",
+				"pt": "Registrar uma oferta recebida"
 			},
-			{
-				title: {
-					es: "Subreparto real",
-					en: "Actual secondary distribution",
-					zh: "实际二级分配",
-					pt: "Rateio secundário real"
-				},
-				subtitle: {
-					es: "Reasignación de costos",
-					en: "Cost reassignment",
-					zh: "成本重新分配",
-					pt: "Reatribuição de custos"
-				},
-				icon: "upload",
-				code: "KSUB"
-			}
-		],
-		"FI - Conciliación Bancaria": [
-			{
-				title: {
-					es: "Registrar conciliaciones",
-					en: "Register reconciliations",
-					zh: "登记对账",
-					pt: "Registrar conciliações"
-				},
-				subtitle: {
-					es: "Flujo bancario diario",
-					en: "Daily bank flow",
-					zh: "每日银行流程",
-					pt: "Fluxo bancário diário"
-				},
-				icon: "account_balance_wallet",
-				code: "FF67"
+			"icon": "note_add",
+			"code": "ME47",
+			"enabled": true
+		},
+		{
+			"title": {
+				"es": "Comparar Cotizaciones",
+				"en": "Compare Quotations",
+				"zh": "比较报价",
+				"pt": "Comparar Cotações"
 			},
-			{
-				title: {
-					es: "Revisar partidas abiertas",
-					en: "Review open items",
-					zh: "审查未清项目",
-					pt: "Revisar itens em aberto"
-				},
-				subtitle: {
-					es: "Cuentas por pagar",
-					en: "Accounts payable",
-					zh: "应付账款",
-					pt: "Contas a pagar"
-				},
-				icon: "receipt",
-				code: "FBL1N"
+			"subtitle": {
+				"es": "Evaluar múltiples ofertas por producto",
+				"en": "Evaluate multiple offers per product",
+				"zh": "评估每个产品的多个报价",
+				"pt": "Avaliar múltiplas ofertas por produto"
 			},
-			{
-				title: {
-					es: "Revisar partidas clientes",
-					en: "Review customer items",
-					zh: "审查客户项目",
-					pt: "Revisar itens de cliente"
-				},
-				subtitle: {
-					es: "Cuentas por cobrar",
-					en: "Accounts receivable",
-					zh: "应收账款",
-					pt: "Contas a receber"
-				},
-				icon: "receipt_long",
-				code: "FBL5N"
-			}
-		],
-		"FI - Datos Maestros": [
-			{
-				title: {
-					es: "Crear centro de coste",
-					en: "Create cost center",
-					zh: "创建成本中心",
-					pt: "Criar centro de custo"
-				},
-				subtitle: {
-					es: "Estructura organizacional",
-					en: "Organizational structure",
-					zh: "组织结构",
-					pt: "Estrutura organizacional"
-				},
-				icon: "business",
-				code: "KS01"
+			"icon": "compare_arrows",
+			"code": "ME49",
+			"enabled": true
+		},
+		{
+			"title": {
+				"es": "Listar Solicitudes de Cotización",
+				"en": "List Requests for Quotation",
+				"zh": "列出询价请求",
+				"pt": "Listar Solicitações de Cotação"
 			},
-			{
-				title: {
-					es: "Modificar clase de costo",
-					en: "Modify cost element",
-					zh: "修改成本要素",
-					pt: "Modificar classe de custo"
-				},
-				subtitle: {
-					es: "Parámetros FI",
-					en: "FI parameters",
-					zh: "财务参数",
-					pt: "Parâmetros FI"
-				},
-				icon: "work",
-				code: "KA02"
-			}
-		]
-	};
+			"subtitle": {
+				"es": "Consultar todas las solicitudes enviadas a proveedores",
+				"en": "View all requests sent to suppliers",
+				"zh": "查看发送给供应商的所有询价请求",
+				"pt": "Ver todas as solicitações enviadas aos fornecedores"
+			},
+			"icon": "list_alt",
+			"code": "ZLIST",
+			"enabled": true
+		},
+		{
+			"title": {
+			"es": "Listar Solicitudes de Cotización por Proveedor",
+			"en": "List Request for Quotations by Vendor",
+			"zh": "按供应商列出询价请求",
+			"pt": "Listar Solicitações de Cotação por Fornecedor"
+			},
+			"subtitle": {
+			"es": "Consultar solicitudes de cotización agrupadas por proveedor",
+			"en": "View Request for Quotations grouped by supplier",
+			"zh": "按供应商查看询价请求",
+			"pt": "Ver solicitações agrupadas por fornecedor"
+			},
+			"icon": "list_alt",
+			"code": "ME4X",
+			"enabled": true
+		},
+		/*
+		{
+			"title": {
+			"es": "Listar Solicitudes de Cotización por Material",
+			"en": "List Request for Quotations by Material",
+			"zh": "按物料列出询价请求",
+			"pt": "Listar Solicitações de Cotação por Material"
+			},
+			"subtitle": {
+			"es": "Consultar solicitudes de cotización agrupadas por producto",
+			"en": "View Request for Quotations grouped by material",
+			"zh": "按物料查看询价请求",
+			"pt": "Ver solicitações agrupadas por produto"
+			},
+			"icon": "inventory_2",
+			"code": "ME4C",
+			"enabled": true
+		},
+		{
+			"title": {
+			"es": "Listar Solicitudes por Número",
+			"en": "List Request for Quotations by Number",
+			"zh": "按编号列出询价请求",
+			"pt": "Listar Solicitações por Número"
+			},
+			"subtitle": {
+			"es": "Consultar solicitud a partir de su número específico",
+			"en": "View Request for Quotation from specific document number",
+			"zh": "从特定编号查看询价请求",
+			"pt": "Consultar solicitação pelo número"
+			},
+			"icon": "tag",
+			"code": "ME4M",
+			"enabled": true
+		},*/
+		{
+			"title": {
+			"es": "Listar Solicitudes por Grupo de Compras",
+			"en": "List Request for Quotations by Purchasing Group",
+			"zh": "按采购组列出询价请求",
+			"pt": "Listar Solicitações por Grupo de Compras"
+			},
+			"subtitle": {
+			"es": "Consultar solicitudes por responsable de compras",
+			"en": "View Request for Quotations by responsible purchasing group",
+			"zh": "查看各采购组的询价请求",
+			"pt": "Ver solicitações por grupo responsável"
+			},
+			"icon": "group",
+			"code": "ME4L",
+			"enabled": true
+		}
+	],
+	"MM - PUR - Gestión de Órdenes de Compra": [
+		/*{
+		"title": {
+			"es": "Crear Orden de Compra",
+			"en": "Create Purchase Order",
+			"zh": "创建采购订单",
+			"pt": "Criar Ordem de Compra"
+		},
+		"subtitle": {
+			"es": "Generar orden a partir de cotización aceptada",
+			"en": "Generate order from accepted quotation",
+			"zh": "从已接受的报价生成订单",
+			"pt": "Gerar ordem a partir de cotação aceita"
+		},
+		"icon": "shopping_cart_checkout",
+		"code": "ME21N",
+		enabled: false
+		},
+		{
+		"title": {
+			"es": "Editar Orden de Compra",
+			"en": "Edit Purchase Order",
+			"zh": "编辑采购订单",
+			"pt": "Editar Ordem de Compra"
+		},
+		"subtitle": {
+			"es": "Modificar condiciones de la orden",
+			"en": "Modify purchase order conditions",
+			"zh": "修改订单条件",
+			"pt": "Modificar condições da ordem"
+		},
+		"icon": "edit",
+		"code": "ME22N",
+		"enabled": false
+		},*/
+		{
+		"title": {
+			"es": "Visualizar Orden de Compra",
+			"en": "View Purchase Order",
+			"zh": "查看采购订单",
+			"pt": "Visualizar Ordem de Compra"
+		},
+		"subtitle": {
+			"es": "Consultar detalle de la orden",
+			"en": "Consult order details",
+			"zh": "查看订单详细信息",
+			"pt": "Consultar detalhes da ordem"
+		},
+		"icon": "receipt_long",
+		"code": "ME23N",
+		"enabled": true
+		},
+		{
+		"title": {
+			"es": "Imprimir u Obtener Orden",
+			"en": "Print or Get Purchase Order",
+			"zh": "打印或获取采购订单",
+			"pt": "Imprimir ou Obter Ordem de Compra"
+		},
+		"subtitle": {
+			"es": "Generar PDF o reenviar orden",
+			"en": "Generate PDF or resend order",
+			"zh": "生成PDF或重新发送订单",
+			"pt": "Gerar PDF ou reenviar ordem"
+		},
+		"icon": "print",
+		"code": "ME9F",
+		"enabled": true
+		}
+	],
+		"MM - PUR - Gestión Contrato de Venta":[
+		{
+		"title": {
+			"es": "Crear Pre-Orden de Compra",
+			"en": "Create Preliminary Purchase Order",
+			"zh": "创建初步采购订单",
+			"pt": "Criar Ordem de Compra Preliminar"
+		},
+		"subtitle": {
+			"es": "Consolidar documentos antes de la OC definitiva",
+			"en": "Consolidate documents before final PO creation",
+			"zh": "在创建正式订单前整合文档",
+			"pt": "Consolidar documentos antes da ordem definitiva"
+		},
+		"icon": "drafts",
+		"code": "ZPREOC",
+		"enabled": true
+		}
+	],
+	"MM - PUR - Gestión de Documentos de Producto": [
+		{
+		"title": {
+			"es": "Visualizar Documentos del Producto",
+			"en": "Display Product Documents",
+			"zh": "显示产品文档",
+			"pt": "Exibir Documentos do Produto"
+		},
+		"subtitle": {
+			"es": "Consultar anexos, cotizaciones y órdenes vinculadas",
+			"en": "View attachments, quotations, and linked orders",
+			"zh": "查看附件、报价和相关订单",
+			"pt": "Ver anexos, cotações e ordens vinculadas"
+		},
+		"icon": "description",
+		"code": "ME2M",
+		"enabled": true
+		},
+		{
+		"title": {
+			"es": "Adjuntar Documentos al Producto",
+			"en": "Attach Documents to Product",
+			"zh": "将文档附加到产品",
+			"pt": "Anexar Documentos ao Produto"
+		},
+		"subtitle": {
+			"es": "Cargar fichas técnicas, QA, certificados",
+			"en": "Upload datasheets, QA reports, certificates",
+			"zh": "上传数据表、质量报告和证书",
+			"pt": "Enviar fichas técnicas, relatórios de QA, certificados"
+		},
+		"icon": "upload_file",
+		"code": "CV01N",
+		"enabled": true
+		}
+	],
+};
 
 
 export default function ProveedorInicio() {
@@ -312,14 +357,15 @@ export default function ProveedorInicio() {
 
     const t = traducciones[lang];
     const translated = Object.keys(data).map(categoryKey => ({
-      key: categoryKey,
-      title: t.categorias[categoryKey],
-      tiles: data[categoryKey].map(tile => ({
-        title: tile.title[lang],
-        subtitle: tile.subtitle[lang],
-        icon: tile.icon,
-        code: tile.code
-      }))
+      	key: categoryKey,
+      	title: t.categorias[categoryKey],
+      	tiles: data[categoryKey].map(tile => ({
+			title: tile.title,               
+			subtitle: tile.subtitle,         
+			icon: tile.icon,
+			code: tile.code,
+			enabled: tile.enabled !== false
+		}))
     })); 
 
     setCategoryData(translated);
@@ -331,70 +377,66 @@ export default function ProveedorInicio() {
 
   return (
     <>
-      <div className="navbar-custom">
-        <h4>
-          <img src="/logo_anasac.png" alt="Anasac" className="logo-anasac" />
-          <span id="page-title">{traducciones[lang].inicio}</span>
-        </h4>
-        <div className="dropdown">
-          <button className="btn btn-sm bg-transparent border-0 dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ color: "var(--text)" }}>
-            <i className="material-icons">account_circle</i>
-          </button>
-          <ul className="dropdown-menu dropdown-menu-end" style={{ backgroundColor: "var(--tile-background)", color: "var(--text)" }}>
-            <li className="dropdown-header px-3">{traducciones[lang].usuario}: <strong>Freddy Ramirez</strong></li>
-            <li className="px-3 py-2 d-flex align-items-center justify-content-between">
-              <span>{traducciones[lang].modo_oscuro}</span>
-              <div className="form-check form-switch m-0">
-                <input className="form-check-input" type="checkbox" id="darkSwitch" checked={isDark} onChange={handleDarkSwitch} />
-              </div>
-            </li>
-            <li className="px-3">
-              <select className="form-select form-select-sm w-auto ms-2" value={lang} onChange={e => setLang(e.target.value)}>
-                <option value="es">🇪🇸 Español</option>
-                <option value="en">🇬🇧 English</option>
-                <option value="pt">🇧🇷 Português</option>
-                <option value="zh">🇨🇳 中文</option>
-              </select>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="category-bar">
-        {categoryData.map(cat => (
-          <button key={cat.key} className="btn btn-outline-secondary btn-sm" onClick={() => {
-            const el = document.getElementById(cat.key);
-            const y = el.getBoundingClientRect().top + window.scrollY - 112;
-            window.scrollTo({ top: y, behavior: "smooth" });
-          }}>
-            {cat.title}
-          </button>
-        ))}
-      </div>
-
-      <div id="mainContent">
-        {categoryData.map(cat => (
-          <div key={cat.key} className="category-section" id={cat.key}>
-            <h5>{cat.title}</h5>
-            <div className="tile-container">
-              {cat.tiles.map((tile, i) => (
-                <div key={i} className="tile">
-                  <div>
-                    <div className="tile-title">{tile.title}</div>
-                    <div className="tile-subtitle">{tile.subtitle}</div>
-                  </div>
-                  <div className="tile-footer">
-                    <i className="material-icons" style={{ fontSize: "2rem" }}>{tile.icon}</i>
-                    <span>{tile.code}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="spacer"></div>
+      	<div className="navbar-custom">
+        	<h4>
+          		<img src="/logo_anasac.png" alt="Anasac" className="logo-anasac" />
+          		<span id="page-title">{traducciones[lang].inicio}</span>
+        	</h4>
+       		<div className="dropdown">
+          		<button className="btn btn-sm bg-transparent border-0 dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ color: "var(--text)" }}>
+            		<i className="material-icons">account_circle</i>
+          		</button>
+          		<ul className="dropdown-menu dropdown-menu-end" style={{ backgroundColor: "var(--tile-background)", color: "var(--text)" }}>
+            		<li className="dropdown-header px-3">{traducciones[lang].usuario}: <strong>Freddy Ramirez</strong></li>
+            		<li className="px-3 py-2 d-flex align-items-center justify-content-between">
+              			<span>{traducciones[lang].modo_oscuro}</span>
+              			<div className="form-check form-switch m-0">
+                		<input className="form-check-input" type="checkbox" id="darkSwitch" checked={isDark} onChange={handleDarkSwitch} />
+             		</div>
+            		</li>
+					<li className="px-3">
+						<select className="form-select form-select-sm w-auto ms-2" value={lang} onChange={e => setLang(e.target.value)}>
+							<option value="es">🇪🇸 Español</option>
+							<option value="en">🇬🇧 English</option>
+							<option value="pt">🇧🇷 Português</option>
+							<option value="zh">🇨🇳 中文</option>
+						</select>
+					</li>
+          		</ul>
+        	</div>
+      	</div>
+      	<div className="category-bar">
+			{categoryData.map(cat => (
+				<button key={cat.key} className="btn btn-outline-secondary btn-sm" onClick={() => {
+					const el = document.getElementById(cat.key);
+					const y = el.getBoundingClientRect().top + window.scrollY - 112;
+					window.scrollTo({ top: y, behavior: "smooth" });
+				}}>{cat.title}
+				</button>
+			))}
+      	</div>
+		<div id="mainContent">
+			{categoryData.map(cat => (
+				<div key={cat.key} className="category-section" id={cat.key}>
+					<h5>{cat.title}</h5>
+					<div className="tile-container">
+						{cat.tiles.map((tile, i) => (
+							<div key={i} className={`tile ${tile.enabled === false ? 'tile-disabled' : ''}`}>
+								<div>
+									<div className="tile-title">{tile.title[lang]}</div>
+									<div className="tile-subtitle">{tile.subtitle[lang]}</div>
+								</div>
+								<div className="tile-footer">
+									<i className="material-icons" style={{ fontSize: "2rem" }}>{tile.icon}</i>
+									<span>{tile.code}</span>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+      	<div className="spacer"></div>
     </>
   );
 }
