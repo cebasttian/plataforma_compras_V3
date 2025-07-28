@@ -77,7 +77,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, border-color 0.3s;
     cursor: pointer;
 }
@@ -128,8 +128,287 @@ body {
 }
 
 .tile-disabled {
-  opacity: 0.4;
-  pointer-events: none;
-  background-color: var(--tile-background);
-  border-style: dashed;
+    opacity: 0.4;
+    pointer-events: none;
+    background-color: var(--tile-background);
+    border-style: dashed;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 5px;
+    /* Espacio entre columnas y filas */
+    padding: 20px;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 210px 120px 400px 0;
+    /* 4 columnas iguales */
+    gap: 10px;
+    align-items: center;
+}
+
+/* Para que los inputs usen todo el espacio disponible */
+.filter-input {
+    /* que pueda crecer y encoger */
+    /* para evitar overflow */
+    height: 30px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+/* El texto alineado a la derecha */
+.filter-text {
+    flex: 0 0 20dvw;
+    /* fijo, no crece */
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    font-size: 14px;
+    /* espacio para separar texto-input */
+}
+
+.filter-label-to {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
+/* Botón centrado y tamaño fijo */
+body.dark-mode .filter-btn {
+    flex: 0;
+    /* tamaño fijo, no crece */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: #232f3b;
+    color: rgb(54, 112, 219);
+    border-color: #375a7f;
+}
+
+.filter-btn {
+    flex: 0;
+    /* tamaño fijo, no crece */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    color: rgb(54, 112, 219);
+    border-color: #b1bac5;
+    font-weight: 900;
+}
+
+
+.filter-input.form-control {
+    background-color: white;
+    color: black;
+    border-color: #ced4da;
+}
+
+.filter-btn.btn-primary {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.input-fantasma {
+    visibility: hidden;
+}
+
+/* Modo oscuro */
+
+
+body.dark-mode .filter-btn.btn-primary {
+    background-color: #375a7f;
+    color: #eee;
+    border-color: #375a7f;
+}
+
+body.dark-mode select,
+body.dark-mode .filter-input.form-control,
+body.dark-mode .form-control {
+    background-color: #1f2937;
+    /* fondo oscuro uniforme */
+    color: #f0f0f0;
+    /* texto claro para buena legibilidad */
+    border-color: #4b5563;
+    /* borde gris oscuro */
+}
+
+body.dark-mode select:focus,
+body.dark-mode .filter-input.form-control:focus,
+body.dark-mode .form-control:focus {
+    outline: none;
+    border-color: #818cf8;
+    /* un azul suave para foco (opcional) */
+    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.3);
+    /* sombra suave */
+}
+
+body.dark-mode ::placeholder {
+    color: #9ca3af;
+    /* gris claro, similar a text-gray-400 */
+    opacity: 1;
+    /* asegúrate de que no esté atenuado */
+}
+
+body.dark-mode input[type=number] {
+    background-color: #1f2937;
+    color: white;
+    border-color: #4b5563;
+}
+
+/* Para Chrome, Safari, Edge */
+body.dark-mode input[type=number]::-webkit-inner-spin-button,
+body.dark-mode input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Fondo oscuro coherente para input type="date" */
+body.dark-mode input[type="date"] {
+    background-color: #1f2937;
+    color: white;
+    border-color: #4b5563;
+}
+
+/* Chrome / Safari: cambia el ícono del calendario (limitado) */
+body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    /* invierte los colores del icono: blanco en vez de negro */
+}
+
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    /* distancia desde abajo */
+    right: 20px;
+    /* distancia desde la derecha */
+    width: 4dvw;
+    height: 2.8dvh;
+    border-radius: 6px;
+    background-color: #0d6efd;
+    /* color bootstrap primary */
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1rem;
+    z-index: 1000;
+    /* para que esté encima de todo */
+    transition: background-color 0.3s ease;
+}
+
+.floating-btn:hover {
+    background-color: #0b5ed7;
+    /* un azul más oscuro al pasar mouse */
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgb(236, 236, 236);
+    border-radius: 10px;
+    width: 50dvw;
+    height: 50dvh;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .modal-content {
+    background: #1f2937;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2.5dvh;
+    cursor: pointer;
+}
+
+.modal-title{
+    font-size: 1.6dvh;
+}
+
+.modal-header{
+    width: 100%;
+    height: 4dvh;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #d8d8d8;
+    padding-left: 1dvw;
+    padding-right: 0.5dvw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+body.dark-mode .modal-header{
+    border-bottom: 1px solid #2c394d;
+}
+
+body.dark-mode .modal-close {
+    color: white;
+}
+
+/* Si el body tiene clase darkmode, usa un rojo más claro o distinto */
+body.dark-mode .delete-button {
+    color: #b9b9b9;
+    /* puedes ajustar el tono si quieres */
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 8px;
+    border-width: 2px;
+}
+
+.btn-autofill {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer
+}
+
+body.dark-mode .btn-autofill {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    color: #f0f0f0;
+    border: 1px solid #4b5563;
+    background-color: #3e526d;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 4px;
 }

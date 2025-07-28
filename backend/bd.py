@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .app.gestion_solicitudes.models import Base
+from .app.request.models import Base
 from .keyvault import key_vault
 
 def db_persefone_connstr(db='QUOTE2'):
